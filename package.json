@@ -1,0 +1,22 @@
+{
+  "name": "nri_playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.35.0"
+  },
+  "dependencies": {
+    "chai": "^4.3.7",
+    "child_process": "^1.0.2",
+    "cross-env": "^7.0.3",
+    "datejs": "^1.0.0-rc3",
+    "dotenv": "^16.3.1",
+    "path": "^0.12.7",
+    "xlsx": "^0.18.5"
+  }
+}
