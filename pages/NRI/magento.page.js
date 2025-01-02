@@ -1,16 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
 /* Page Locators */
-const BUTTON_NEW_EMPLOYEE = "//div[contains(text(),'New Employee')]";
-const VERIFY_NOTIF = '.mr-4';
-
-const NAME_FIELD = "//input[contains(@placeholder,'Name')]";
-const EMAIL_FIELD = "//input[@placeholder='Email']";
-
-const OPTION = '(//span[@class="flex items-center"])[1]';
-const CONFIRM_DELETE = '//div[@class="dialog-content"]//button[text()="Delete"]';
-const VERIFY_DELETE = '//div[text()="Success delete data"]';
-
 const SEARCH_FIELD = '//input[@id="search"]';
 const ITEM_LIST = '//dd[@class="item"]/a';
 const OPTION_PRODUCT = '(//select[@id="sorter"])[1]';
@@ -41,10 +31,9 @@ class employeePage {
         await this.page.locator(OPTION_PRODUCT).click();
         await delay(3000)
         await this.page.getByRole('combobox', { name: 'Sort By' }).selectOption('price');
-        await this.page.locator(SORT).click();
         await delay(3000)
 
-        const elements = await this.page.$$('//*[@data-price-type="finalPrice"]');
+        const elements = await this.page.$$('//*[@id="to-46"]/span |  //*[@data-price-type="finalPrice"]');
 
         const prices = [];
         for (const element of elements) {
@@ -52,7 +41,7 @@ class employeePage {
             const price = parseFloat(priceText.replace(/[^\d.-]/g, ''));
             prices.push(price);
         }
-
+        console.log(prices)
         const checkPrice = Math.max(...prices);
         expect(prices[0]).toBe(checkPrice)
     }
@@ -61,11 +50,11 @@ class employeePage {
         await this.page.locator(OPTION_PRODUCT).click();
         await delay(3000)
         await this.page.getByRole('combobox', { name: 'Sort By' }).selectOption('price');
-        await this.page.getByRole('link', { name: ' Set Ascending Direction' }).click();
-        await this.page.getByRole('link', { name: ' Set Descending Direction' }).click();
+        await delay(5000)
+        await this.page.locator('(//a[@data-role="direction-switcher"])[1]').click();
         await delay(3000)
 
-        const elements = await this.page.$$('//*[@data-price-type="finalPrice"]');
+        const elements = await this.page.$$('//*[@id="to-46"]/span |  //*[@data-price-type="finalPrice"]');
 
         const prices = [];
         for (const element of elements) {
@@ -73,7 +62,7 @@ class employeePage {
             const price = parseFloat(priceText.replace(/[^\d.-]/g, ''));
             prices.push(price);
         }
-
+        console.log(prices)
         const checkPrice = Math.min(...prices);
         expect(prices[0]).toBe(checkPrice)
     }
